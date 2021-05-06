@@ -59,7 +59,6 @@ Expr			:	Expr '-' Term								{$$ = doSubtract($1, $3); } ;
 Expr			:	Term										{$$ = $1; } ;
 Term			:	Term '*' Factor								{ $$ = doMult($1, $3); } ;
 Term			:	Term '/' Factor								{ $$ = doDivide($1, $3); } ;
-Term			:	Term '%' Factor								{ $$ = doModulus($1, $3); } ;
 Term			:	Factor										{ $$ = $1; } ;
 Term			:	'-' Factor									{ $$ = doNegative($2); } ;
 Factor			:	IntLit										{ $$ = doIntLit(yytext); };

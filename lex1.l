@@ -18,6 +18,7 @@ digit [0-9]
 if					{return IF;}
 int					{return Int;}
 print					{return Write;}
+scan					{return Scan;}
 {letter}({letter}|{digit})*	{return Ident;}
 {digit}{digit}*		{return IntLit;}
 \=\=					{return EQ;}

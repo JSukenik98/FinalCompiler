@@ -75,6 +75,20 @@ struct ExprRes* doSubtract(struct ExprRes* Res1, struct ExprRes* Res2) {
 	return Res1;
 }
 
+struct ExprRes* doNegative(struct ExprRes* Res1) {
+
+	int reg;
+
+	reg = AvailTmpReg();
+	AppendSeq(Res1->Instrs, GenInstr(NULL, "sub",
+		TmpRegName(reg),
+		"0",
+		TmpRegName(Res1->Reg)));
+	ReleaseTmpReg(Res1->Reg);
+	Res1->Reg = reg;
+	return Res1;
+}
+
 struct ExprRes *  doMult(struct ExprRes * Res1, struct ExprRes * Res2)  { 
 
    int reg;
@@ -134,20 +148,6 @@ struct ExprRes* doModulus(struct ExprRes* Res1, struct ExprRes* Res2) {
 	return Res1;
 }
 
-struct ExprRes* doNegative(struct ExprRes* Res1) {
-
-	int reg;
-
-	reg = AvailTmpReg();
-	AppendSeq(Res1->Instrs, GenInstr(NULL, "sub",
-		TmpRegName(reg),
-		"$0",
-		TmpRegName(Res1->Reg)));
-	ReleaseTmpReg(Res1->Reg);
-	Res1->Reg = reg;
-	return Res1;
-}
-
 struct InstrSeq * doPrint(struct ExprRes * Expr) { 
 
   struct InstrSeq *code;
@@ -166,6 +166,23 @@ struct InstrSeq * doPrint(struct ExprRes * Expr) {
     free(Expr);
 
   return code;
+}
+
+struct InstrSeq* doScan(struct ExprRes* Expr) {
+
+	struct InstrSeq* code;
+
+	code = Expr->Instrs;
+
+	AppendSeq(code, GenInstr(NULL, "la", "$a0", tmpRegName(Expr->Reg), NULL));
+	AppendSeq(code, GenInstr(NULL, "li", "$a1", 61, NULL));
+	AppendSeq(code, GenInstr(NULL, "li", "$v0", 8, NULL));
+	AppendSeq(code, GenInstr(NULL, "syscall", NULL, NULL, NULL));
+
+	ReleaseTmpReg(Expr->Reg);
+	free(Expr);
+
+	return code;
 }
 
 struct InstrSeq * doAssign(char *name, struct ExprRes * Expr) { 

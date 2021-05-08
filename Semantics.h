@@ -30,10 +30,12 @@ extern struct ExprRes *  doRval(char * name);
 extern struct InstrSeq *  doAssign(char * name,  struct ExprRes * Res1);
 extern struct ExprRes *  doAdd(struct ExprRes * Res1,  struct ExprRes * Res2);
 extern struct ExprRes* doSubtract(struct ExprRes* Res1, struct ExprRes* Res2);
+extern struct ExprRes* doNegative(struct ExprRes* Res1);
 extern struct ExprRes *  doMult(struct ExprRes * Res1,  struct ExprRes * Res2);
 extern struct ExprRes* doDivide(struct ExprRes* Res1, struct ExprRes* Res2);
-extern struct ExprRes* doNegative(struct ExprRes* Res1);
+extern struct ExprRes* doModulus(struct ExprRes* Res1, struct ExprRes* Res2);
 extern struct InstrSeq *  doPrint(struct ExprRes * Expr);
+extern struct InstrSeq* doScan(struct ExprRes* Expr);
 extern struct BExprRes * doBExpr (struct ExprRes * Res1,  struct ExprRes * Res2);
 extern struct InstrSeq * doIf(struct BExprRes *bRes, struct InstrSeq * seq);
 

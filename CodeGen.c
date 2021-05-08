@@ -140,6 +140,7 @@ SaveSeq()
   
   scnt = 0;
   save = NULL;
+  code = NULL;
   for (i = 0; i < MAXREG; i++) {
     if (!Registers[i].Free) {
       scnt++;
@@ -165,6 +166,7 @@ RestoreSeq()
   
   scnt = 0;
   save = NULL;
+  code = NULL;
   for (i = 0; i < MAXREG; i++) {
     if (!Registers[i].Free) {
       scnt++;
